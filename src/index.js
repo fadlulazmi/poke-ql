@@ -3,10 +3,22 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+import {ApolloClient, ApolloProvider, InMemoryCache} from '@apollo/client'
+import PokemonContextProvider from './context';
+import "toasted-notes/src/styles.css";
+
+const client = new ApolloClient({
+  uri: 'https://graphql-pokeapi.vercel.app/api/graphql',
+  cache: new InMemoryCache()
+})
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <ApolloProvider client={client}>
+      <PokemonContextProvider>
+        <App />
+      </PokemonContextProvider>
+    </ApolloProvider>
   </React.StrictMode>,
   document.getElementById('root')
 );
